@@ -6,11 +6,11 @@ import React, {
   useReducer,
 } from "react";
 import { listProducts } from "../../services/fakeAPI";
-import { ActionProducts, Product } from "../../types/storeTypes";
+import { ActionProducts, TProduct } from "../../types/storeTypes";
 import reducerProducts from "../reducers/reducerProducts";
 
 interface ContextType {
-  state: Product[];
+  state: TProduct[];
   dispatch: React.Dispatch<ActionProducts>;
 }
 

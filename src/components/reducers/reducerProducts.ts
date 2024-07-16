@@ -1,8 +1,8 @@
-import { ActionProducts, Product } from "../../types/storeTypes";
+import { ActionProducts, TProduct } from "../../types/storeTypes";
 const reducerProducts = (
-  state: Product[],
+  state: TProduct[],
   action: ActionProducts
-): Product[] => {
+): TProduct[] => {
   switch (action.type) {
     case "initialize":
       return action.payload;

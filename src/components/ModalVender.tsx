@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/ModalVender.css";
-import { Product } from "../types/storeTypes";
+import { TProduct } from "../types/storeTypes";
 import { useAppContext } from "./context/AppContext";
 
 interface ModalVenderProps {
@@ -10,7 +10,7 @@ interface ModalVenderProps {
 const ModalVender: React.FC<ModalVenderProps> = ({ closeModal }) => {
   const { dispatch } = useAppContext();
 
-  const addProduct = (product: Product) => {
+  const addProduct = (product: TProduct) => {
     dispatch({ type: "addProduct", payload: product });
   };
 
@@ -53,7 +53,7 @@ const ModalVender: React.FC<ModalVenderProps> = ({ closeModal }) => {
 
     // Aquí puedes realizar una petición para subir la imagen a tu servidor, si es necesario
 
-    const newProduct: Product = {
+    const newProduct: TProduct = {
       id: Date.now(),
       title: formData.name,
       price: formData.price,

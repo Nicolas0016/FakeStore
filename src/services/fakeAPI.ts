@@ -1,6 +1,6 @@
-import { Product } from "../types/storeTypes";
+import { TProduct } from "../types/storeTypes";
 
-export async function oneProduct(idProduct: number): Promise<Product> {
+export async function oneProduct(idProduct: number): Promise<TProduct> {
   const response = await fetch(
     `https://fakestoreapi.com/products/${idProduct}`
   );
@@ -8,7 +8,7 @@ export async function oneProduct(idProduct: number): Promise<Product> {
   return product;
 }
 
-export async function listProducts(): Promise<Product[]> {
+export async function listProducts(): Promise<TProduct[]> {
   const response = await fetch(`https://fakestoreapi.com/products/`);
   const products = await response.json();
   return products;
