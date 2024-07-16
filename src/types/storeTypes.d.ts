@@ -34,8 +34,8 @@ type ActionProducts =
   | { type: "initialize"; payload: Product[] };
 
 type ActionFilters =
-  | { type: "lowerPrice"; payload: boolean }
-  | { type: "bestRating"; payload: boolean }
+  | { type: "lowerPrice"; payload: { condition: boolean; state: Product[] } }
+  | { type: "bestRating"; payload: { condition: boolean; state: Product[] } }
   | { type: "initialize"; payload: Product[] }
   | {
       type: "searchProducts";
@@ -51,6 +51,7 @@ type ActionFilters =
 
 type ActionShoppingCart =
   | { type: "addProduct"; payload: CartProduct }
-  | { type: "removeProduct"; payload: CartProduct }
+  | { type: "removeProduct"; payload: number }
   | { type: "initialize"; payload: CartProduct[] }
-  | { type: "updateCart"; payload: CartProduct[] };
+  | { type: "updateCart"; payload: CartProduct[] }
+  | { type: "modifyQuantity"; payload: { id: number; quantity: number } };

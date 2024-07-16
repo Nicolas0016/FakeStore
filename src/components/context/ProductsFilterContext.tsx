@@ -12,7 +12,7 @@ interface ContextType {
   state: TProduct[];
   dispatch: React.Dispatch<ActionFilters>;
 }
-const FilterContext = createContext<ContextType | undefined>(undefined);
+export const FilterContext = createContext<ContextType | undefined>(undefined);
 
 export const FiltersProvider: React.FC<{ children: ReactNode }> = ({
   children,

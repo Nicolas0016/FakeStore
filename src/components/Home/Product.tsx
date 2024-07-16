@@ -35,7 +35,7 @@ const Product: React.FC<{ product: TProduct }> = ({ product }) => {
     }
   };
   return (
-    <li key={product.id} style={{ minWidth: "1024px" }}>
+    <li key={product.id} style={{ minWidth: "800px" }}>
       <picture>
         <img width={150} src={product.image} alt={product.title} />
       </picture>

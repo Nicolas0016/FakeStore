@@ -7,33 +7,33 @@ const Filters = () => {
   const [categorys, setCategorys] = useState<string[]>([]);
   const [categorysSelected, setCategorysSelected] = useState<string[]>([]);
   const { dispatch } = useFiltersContext();
+  const stateFilter = useFiltersContext().state;
   const { state } = useAppContext();
+
   useEffect(() => {
     if (!state) return;
-    const uniqueCategories = new Set<string>();
-    state.forEach((product) => {
-      uniqueCategories.add(product.category);
-    });
-    setCategorys([...uniqueCategories]);
+    const uniqueCategories = Array.from(
+      new Set<string>(state.map((product) => product.category))
+    );
+    setCategorys(uniqueCategories);
   }, [state]);
 
-  const lowerPrice = (condicional: boolean) => {
-    condicional
-      ? dispatch({ type: "lowerPrice", payload: condicional })
-      : dispatch({ type: "initialize", payload: state });
-  };
-  const bestRated = (condicional: boolean) => {
-    condicional
-      ? dispatch({ type: "bestRating", payload: condicional })
-      : dispatch({ type: "initialize", payload: state });
-  };
-  const handleSelectCategory = (category: string) => {
-    let updatedCategories;
-    if (categorysSelected.includes(category)) {
-      updatedCategories = categorysSelected.filter((cat) => cat !== category);
+  const applyFilter = (type: "lowerPrice" | "bestRating", checked: boolean) => {
+    if (!checked) {
+      dispatch({ type: "initialize", payload: stateFilter });
     } else {
-      updatedCategories = [...categorysSelected, category];
+      dispatch({
+        type,
+        payload: { condition: checked, state: [...stateFilter] }, // Clonar el array para evitar mutaciones directas
+      });
     }
+  };
+
+  const handleSelectCategory = (category: string) => {
+    const updatedCategories = categorysSelected.includes(category)
+      ? categorysSelected.filter((cat) => cat !== category)
+      : [...categorysSelected, category];
+
     setCategorysSelected(updatedCategories);
     dispatch({
       type: "category",
@@ -45,30 +45,31 @@ const Filters = () => {
     <nav className="filters-nav">
       <ul>
         <li>
-          <label htmlFor="">
+          <label>
             <span>Ordenar por precio</span>
             <input
               type="checkbox"
               onChange={(e) => {
-                lowerPrice(e.target.checked);
+                applyFilter("lowerPrice", e.target.checked);
               }}
             />
           </label>
         </li>
 
         <li>
-          <label htmlFor="">
+          <label>
             <span>Mejor valorados</span>
             <input
               type="checkbox"
               onChange={(e) => {
-                bestRated(e.target.checked);
+                applyFilter("bestRating", e.target.checked);
               }}
             />
           </label>
         </li>
+
         <li>
-          <span>Category</span>
+          <span>Categoría</span>
           <ul>
             {categorys.map((category, index) => (
               <li
