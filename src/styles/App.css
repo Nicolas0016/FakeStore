@@ -1,0 +1,23 @@
+main {
+    display: grid;
+    max-width: 100vw;
+    gap: 20px;
+    grid-template-areas:
+      "navMenu navMenu navMenu navMenu"
+      "nav listProducs  listProducs listProducs"
+      "nav listProducs listProducs listProducs"
+      "footer footer footer footer";
+  }
+  
+  main .menu {
+    grid-area: navMenu;
+  }
+  
+  main .filterNav {
+    grid-area: nav;
+  }
+  
+  main .listProducs {
+    grid-area: listProducs;
+  }
+  
