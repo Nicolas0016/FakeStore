@@ -55,3 +55,12 @@ type ActionShoppingCart =
   | { type: "initialize"; payload: CartProduct[] }
   | { type: "updateCart"; payload: CartProduct[] }
   | { type: "modifyQuantity"; payload: { id: number; quantity: number } };
+type ActionHistory =
+  | { type: "initialize"; payload: TProduct[] }
+  | { type: "addProduct"; payload: TProduct }
+  | { type: "removeProduct"; payload: number };
+
+export interface HistoryContextType {
+  state: TProduct[];
+  dispatch: React.Dispatch<ActionHistory>;
+}

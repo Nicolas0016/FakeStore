@@ -6,8 +6,10 @@ export default function Home() {
   return (
     <>
       <Menu></Menu>
-      <Filters></Filters>
-      <ListProducts></ListProducts>
+      <div className="container-filters">
+        <Filters></Filters>
+        <ListProducts></ListProducts>
+      </div>
     </>
   );
 }

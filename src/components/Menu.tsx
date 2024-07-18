@@ -52,8 +52,9 @@ const Menu = () => {
         </ul>
         <div className="nav-category">
           <ul>
-            <li>Ofertas</li>
-            <li>Historial</li>
+            <li>
+              <Link to="/history">Historial</Link>
+            </li>
             <li onClick={() => setShowModal(!showModal)}>Vender</li>
           </ul>
           <Link to="/shopping-cart">

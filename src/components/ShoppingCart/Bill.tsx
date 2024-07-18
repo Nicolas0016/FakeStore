@@ -1,7 +1,11 @@
-import { useCartContext } from "../components/context/CartContext";
+import React from "react";
+import { useCartContext } from "../context/CartContext";
 
-export default function Bill() {
-  const { state } = useCartContext();
+const Bill: React.FC<{ handleShowModal: () => void }> = ({
+  handleShowModal,
+}) => {
+  const { state, dispatch } = useCartContext();
+
   const titleProdcut = (text: string, longitudMaxima: number) => {
     if (text.length <= longitudMaxima) {
       return text; // Devuelve el texto completo si es menor o igual a la longitud máxima
@@ -9,6 +13,7 @@ export default function Bill() {
       return text.substring(0, longitudMaxima) + "..."; // Recorta el texto y añade puntos suspensivos
     }
   };
+
   const totalPrices = () => {
     let totalPrice = 0;
     state.map((product) => {
@@ -16,11 +21,17 @@ export default function Bill() {
     });
     return Math.round(totalPrice * 100) / 100;
   };
+
+  const sellProducts = () => {
+    handleShowModal();
+    dispatch({ type: "initialize", payload: [] });
+  };
+
   return (
     <div className="bill">
       <ul>
         {state.map((product) => (
-          <li>
+          <li key={product.id}>
             <span>
               {titleProdcut(product.title, 20)} ({product.quantity})
             </span>
@@ -32,8 +43,10 @@ export default function Bill() {
         <span>
           Total <strong>$ {totalPrices()}</strong>
         </span>
-        <button>Comprar</button>
+        <button onClick={sellProducts}>Comprar</button>
       </footer>
     </div>
   );
-}
+};
+
+export default Bill;

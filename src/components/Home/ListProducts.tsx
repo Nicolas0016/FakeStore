@@ -1,16 +1,12 @@
 import "../../styles/ListProducts.css";
 import { useFiltersContext } from "../context/ProductsFilterContext";
-import { NotFound } from "../Icons"; // Asegúrate de importar el componente NotFound
+import NotProdcuts from "../ShoppingCart/NotProducts";
 import Product from "./Product";
-
 const ListProducts = () => {
   const { state } = useFiltersContext();
   if (state.length === 0) {
     return (
-      <div className="listProducts noProducts">
-        <NotFound />
-        No encontramos el dispositivo que busca
-      </div>
+      <NotProdcuts text="No encontramos el producto que busca"></NotProdcuts>
     );
   }
 

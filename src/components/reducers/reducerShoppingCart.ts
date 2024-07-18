@@ -12,7 +12,7 @@ const reducerProductsCart = (
     case "removeProduct":
       return state.filter((product) => product.id != action.payload);
     case "initialize":
-      return state;
+      return action.payload;
     case "modifyQuantity":
       return state.map((product) =>
         product.id === action.payload.id

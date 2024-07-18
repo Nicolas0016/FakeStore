@@ -1,6 +1,6 @@
 import React from "react";
-import { useCartContext } from "../components/context/CartContext";
-import { CartProduct } from "../types/storeTypes";
+import { CartProduct } from "../../types/storeTypes";
+import { useCartContext } from "../context/CartContext";
 const ProductCart: React.FC<{ product: CartProduct }> = ({ product }) => {
   const { dispatch } = useCartContext();
   const removeProduct = (id: number) => {
@@ -20,9 +20,8 @@ const ProductCart: React.FC<{ product: CartProduct }> = ({ product }) => {
     return (
       <>
         <option value={product.quantity}>{product.quantity}</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
+        <option value={product.quantity - 1}>{product.quantity - 1}</option>
+        <option value={product.quantity + 1}>{product.quantity + 1}</option>
       </>
     );
   };
@@ -56,8 +55,6 @@ const ProductCart: React.FC<{ product: CartProduct }> = ({ product }) => {
                 </li>
               </ul>
               <select
-                name=""
-                id=""
                 onChange={(e) => {
                   handleSelectAction(e, product.id);
                 }}

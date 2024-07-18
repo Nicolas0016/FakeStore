@@ -1,26 +1,29 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { CartProduct, TProduct } from "../../types/storeTypes";
 import { useCartContext } from "../context/CartContext";
+import useHistoryContext from "../hooks/useHistoryContext";
 import { ShoppingCart } from "../Icons";
 import Stars from "./Stars";
+
 const Product: React.FC<{ product: TProduct }> = ({ product }) => {
-  const { state, dispatch } = useCartContext();
+  const { state: cartState, dispatch: cartDispatch } = useCartContext();
+  const { state: historyState, dispatch: historyDispatch } =
+    useHistoryContext();
+
   const handleClickProduct = (product: TProduct) => {
-    // Verificar si el producto ya está en el carrito
-    const existingProduct = state.find((p) => p.id === product.id);
+    const existingProduct = cartState.find((p) => p.id === product.id);
 
     if (existingProduct) {
-      // Si el producto existe, incrementar su cantidad
       const updatedProduct = {
         ...existingProduct,
         quantity: existingProduct.quantity + 1,
       };
-      const updatedState = state.map((p) =>
+      const updatedState = cartState.map((p) =>
         p.id === product.id ? updatedProduct : p
       );
-      dispatch({ type: "updateCart", payload: updatedState });
+      cartDispatch({ type: "updateCart", payload: updatedState });
     } else {
-      // Si el producto no existe, añadirlo con cantidad 1
       const addProduct: CartProduct = {
         id: product.id,
         title: product.title,
@@ -31,16 +34,27 @@ const Product: React.FC<{ product: TProduct }> = ({ product }) => {
         rating: product.rating,
         quantity: 1,
       };
-      dispatch({ type: "addProduct", payload: addProduct });
+      cartDispatch({ type: "addProduct", payload: addProduct });
     }
   };
+
+  const addProductToHistory = (product: TProduct) => {
+    if (historyState.find((p) => p.id === product.id)) return;
+    historyDispatch({ type: "addProduct", payload: product });
+  };
+
   return (
     <li key={product.id} style={{ minWidth: "800px" }}>
       <picture>
         <img width={150} src={product.image} alt={product.title} />
       </picture>
       <article>
-        <h4>{product.title}</h4>
+        <Link
+          onClick={() => addProductToHistory(product)}
+          to={`/${product.id}`}
+        >
+          <h4>{product.title}</h4>
+        </Link>
         <small>
           <del>
             $ {Math.round((product.price + product.price * 0.2) * 100) / 100}
@@ -67,4 +81,5 @@ const Product: React.FC<{ product: TProduct }> = ({ product }) => {
     </li>
   );
 };
+
 export default Product;
