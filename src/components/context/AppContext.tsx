@@ -5,9 +5,9 @@ import React, {
   useEffect,
   useReducer,
 } from "react";
+import reducerProducts from "../../reducers/reducerProducts";
 import { listProducts } from "../../services/fakeAPI";
 import { ActionProducts, TProduct } from "../../types/storeTypes";
-import reducerProducts from "../reducers/reducerProducts";
 
 interface ContextType {
   state: TProduct[];
@@ -23,9 +23,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
   const [state, dispatch] = useReducer(reducer, []);
   useEffect(() => {
-    listProducts().then((products) => {
-      dispatch({ type: "initialize", payload: products });
-    });
+    const products: TProduct[] = JSON.parse(localStorage.getItem("products"));
+    if (products) dispatch({ type: "initialize", payload: products });
+    else {
+      listProducts().then((products) => {
+        dispatch({ type: "initialize", payload: products });
+        window.localStorage.setItem("products", JSON.stringify(products));
+      });
+    }
   }, []);
 
   return (

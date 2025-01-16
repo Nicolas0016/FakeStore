@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useContext, useReducer } from "react";
+import reducerProductsCart from "../../reducers/reducerShoppingCart";
 import { ActionShoppingCart, CartProduct } from "../../types/storeTypes";
-import reducerProductsCart from "../reducers/reducerShoppingCart";
 interface ContextType {
   state: CartProduct[];
   dispatch: React.Dispatch<ActionShoppingCart>;

@@ -5,7 +5,7 @@ import { FiltersProvider } from "./components/context/ProductsFilterContext";
 import AppRoutes from "./routes/Routes";
 function App() {
   return (
-    <main>
+    <main className="bg-gray/50 min-h-[100vh]">
       <AppProvider>
         <FiltersProvider>
           <HistoryProvider>

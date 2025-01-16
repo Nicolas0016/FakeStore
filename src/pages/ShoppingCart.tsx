@@ -5,8 +5,6 @@ import Bill from "../components/ShoppingCart/Bill";
 import ProductCart from "../components/ShoppingCart/CartProduct";
 import MoldalSelled from "../components/ShoppingCart/ModalSelled";
 import NotProdcuts from "../components/ShoppingCart/NotProducts";
-import "../styles/Cart.css";
-
 const ShoppingCart: React.FC = () => {
   const { state } = useCartContext();
   const [showModal, setShowModal] = useState(false);
@@ -14,22 +12,18 @@ const ShoppingCart: React.FC = () => {
   const handleShowModal = () => {
     setShowModal(!showModal);
   };
-
-  console.log("Modal status:", showModal); // Agrega un log para verificar el estado del modal
-
   if (state.length === 0)
     return (
       <>
-        <Menu />
         <NotProdcuts text="No hay productos en en carro" />
       </>
     );
 
   return (
     <>
-      <Menu />
-      <div className="products">
-        <ul className="products-in-cart">
+      <Menu></Menu>
+      <div className="flex xl:justify-around relative p-4">
+        <ul className="flex flex-col gap-4">
           {state.map((product) => (
             <ProductCart product={product} key={product.id} />
           ))}

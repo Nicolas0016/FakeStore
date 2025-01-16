@@ -2,10 +2,12 @@ import { NotFound } from "../Icons";
 
 const NotProdcuts = ({ text }: { text: string }) => {
   return (
-    <div className="NotProducts">
-      <NotFound></NotFound>
-      <h2>{text}</h2>
-    </div>
+    <>
+      <section className="flex flex-col h-[500px] gap-4 items-center justify-center">
+        <NotFound></NotFound>
+        <h2>{text}</h2>
+      </section>
+    </>
   );
 };
 export default NotProdcuts;

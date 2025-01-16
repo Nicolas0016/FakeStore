@@ -1,4 +1,4 @@
-import { ActionFilters, TProduct } from "../../types/storeTypes";
+import { ActionFilters, TProduct } from "../types/storeTypes";
 
 const reducerFilters = (
   state: TProduct[],
@@ -6,13 +6,15 @@ const reducerFilters = (
 ): TProduct[] => {
   switch (action.type) {
     case "bestRating":
-      return [...action.payload.state].sort(
-        (a, b) => b.rating.rate - a.rating.rate // Ordenar de mayor a menor
-      );
+      return action.payload.condition
+        ? [...action.payload.state].sort(
+            (a, b) => b.rating.rate - a.rating.rate
+          )
+        : action.payload.state;
     case "lowerPrice":
       return [...action.payload.state].sort((a, b) => a.price - b.price);
     case "searchProducts":
-      return action.payload.initialState.filter((product) =>
+      return [...action.payload.initialState].filter((product) =>
         product.title
           .toLowerCase()
           .includes(action.payload.searchText.toLowerCase())

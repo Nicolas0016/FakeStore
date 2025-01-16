@@ -1,4 +1,4 @@
-import { ActionProducts, TProduct } from "../../types/storeTypes";
+import { ActionProducts, TProduct } from "../types/storeTypes";
 const reducerProducts = (
   state: TProduct[],
   action: ActionProducts

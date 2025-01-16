@@ -11,7 +11,7 @@ const Stars: React.FC<StarsProps> = ({ quantityStars }) => {
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
   return (
-    <ul style={{ display: "flex", listStyle: "none", padding: 0 }}>
+    <ul className="text-lightBlue flex gap-[5px]">
       {[...Array(fullStars)].map((_, index) => (
         <li key={`full-${index}`}>
           <FullStar />

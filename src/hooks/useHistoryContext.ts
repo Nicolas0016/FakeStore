@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { HistoryContext } from "../context/HistoryContext";
+import { HistoryContext } from "../components/context/HistoryContext";
+
 const useHistoryContext = () => {
   const context = useContext(HistoryContext);
   if (!context) {

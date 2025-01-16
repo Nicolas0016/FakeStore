@@ -5,8 +5,8 @@ import React, {
   useEffect,
   useReducer,
 } from "react";
+import reducerFilters from "../../reducers/reducerFilters";
 import { ActionFilters, TProduct } from "../../types/storeTypes";
-import reducerFilters from "../reducers/reducerFilters";
 import { useAppContext } from "./AppContext";
 interface ContextType {
   state: TProduct[];

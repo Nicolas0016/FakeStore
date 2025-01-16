@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../../styles/Filters.css";
 import { useAppContext } from "../context/AppContext";
 import { useFiltersContext } from "../context/ProductsFilterContext";
 
@@ -19,14 +18,10 @@ const Filters = () => {
   }, [state]);
 
   const applyFilter = (type: "lowerPrice" | "bestRating", checked: boolean) => {
-    if (!checked) {
-      dispatch({ type: "initialize", payload: stateFilter });
-    } else {
-      dispatch({
-        type,
-        payload: { condition: checked, state: [...stateFilter] }, // Clonar el array para evitar mutaciones directas
-      });
-    }
+    dispatch({
+      type,
+      payload: { condition: checked, state: [...stateFilter] },
+    });
   };
 
   const handleSelectCategory = (category: string) => {
@@ -42,40 +37,48 @@ const Filters = () => {
   };
 
   return (
-    <nav className="filters-nav">
-      <ul>
+    <nav className="sticky top-[150px] h-fit text-black/70 w-[270px] px-[10px]">
+      <ul className="flex flex-col gap-3">
         <li>
-          <label>
+          <label className="flex justify-between">
             <span>Ordenar por precio</span>
-            <input
-              type="checkbox"
-              onChange={(e) => {
-                applyFilter("lowerPrice", e.target.checked);
-              }}
-            />
+            <div className="switch1">
+              <input
+                type="checkbox"
+                id="toggle-price"
+                onChange={(e) => {
+                  applyFilter("lowerPrice", e.target.checked);
+                }}
+              />
+              <label htmlFor="toggle-price"></label>
+            </div>
           </label>
         </li>
 
         <li>
-          <label>
+          <label className="flex justify-between">
             <span>Mejor valorados</span>
-            <input
-              type="checkbox"
-              onChange={(e) => {
-                applyFilter("bestRating", e.target.checked);
-              }}
-            />
+            <div className="switch2">
+              <input
+                type="checkbox"
+                id="toggle-rating"
+                onChange={(e) => {
+                  applyFilter("bestRating", e.target.checked);
+                }}
+              />
+              <label htmlFor="toggle-rating"></label>
+            </div>
           </label>
         </li>
 
         <li>
           <span>Categoría</span>
-          <ul>
+          <ul className="flex flex-col gap-2 ml-4">
             {categorys.map((category, index) => (
               <li
                 key={index}
                 className={
-                  categorysSelected.includes(category) ? "selected" : ""
+                  categorysSelected.includes(category) ? "text-black" : ""
                 }
                 onClick={() => handleSelectCategory(category)}
               >

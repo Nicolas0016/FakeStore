@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/Menu.css";
-import { ShoppingCart } from "./Icons";
+import { ShoppingCart } from "../components/Icons";
 import ModalVender from "./ModalVender";
 import { useAppContext } from "./context/AppContext";
 import { useCartContext } from "./context/CartContext";
@@ -30,36 +29,65 @@ const Menu = () => {
       changeFilter(e.currentTarget.value);
     }
   };
-  const totalQuantity = () => {
-    return productsCart.reduce((total, product) => total + product.quantity, 0);
-  };
+
+  const totalQuantity = productsCart.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
+
   return (
     <>
       {showModal && <ModalVender closeModal={closeModal} />}
-      <nav className="menu nav-menu">
-        <ul className="nav-search">
+      <nav
+        className=" py-4 px-3 bg-yellow relative flex flex-col lg:flex-row lg:items-center lg:justify-between lg:px-8 gap-5"
+        style={{ borderRadius: "0 0 9px 9px " }}
+      >
+        <ul className="flex flex-col sm:flex-row justify-center items-center gap-5 lg:gap-8">
           <li>
             <Link to="/">
               <img
                 src="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.59/mercadolibre/logo_large_25years@2x.png"
                 alt="Logo"
+                className=""
               />
             </Link>
           </li>
-          <li>
-            <input type="text" onKeyDown={newFilter} />
+          <li className="w-full sm:w-s">
+            <input
+              type="text"
+              onKeyDown={newFilter}
+              className="rounded-lg text-xl py-1 px-2 focus:outline-none w-full sm:w-auto"
+              placeholder="Buscar productos"
+            />
           </li>
         </ul>
-        <div className="nav-category">
-          <ul>
+
+        {/* Menu Links */}
+        <div className="flex justify-center">
+          <ul className="flex justify-center gap-6 text-white font-medium text-lg">
             <li>
               <Link to="/history">Historial</Link>
             </li>
-            <li onClick={() => setShowModal(!showModal)}>Vender</li>
+            <li
+              onClick={() => setShowModal(!showModal)}
+              className="cursor-pointer"
+            >
+              Vender
+            </li>
           </ul>
+        </div>
+
+        {/* Shopping Cart */}
+        <div className="absolute right-[20px] bottom-[10px] text-white lg:relative lg:right-0 lg:bottom-0">
           <Link to="/shopping-cart">
-            <ShoppingCart />
-            <span>{totalQuantity()}</span>
+            <div className="relative">
+              <ShoppingCart />
+              {totalQuantity > 0 && (
+                <span className="absolute -top-[12px] -right-[12px] size-6 bg-[#e91515] rounded-full grid place-content-center text-xs text-white">
+                  {totalQuantity}
+                </span>
+              )}
+            </div>
           </Link>
         </div>
       </nav>

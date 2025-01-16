@@ -28,10 +28,10 @@ const Bill: React.FC<{ handleShowModal: () => void }> = ({
   };
 
   return (
-    <div className="bill">
-      <ul>
+    <div className="sticky top-5 flex flex-col gap-4 bg-white h-fit py-2 px-4 rounded-lg">
+      <ul className="flex flex-col gap-2">
         {state.map((product) => (
-          <li key={product.id}>
+          <li key={product.id} className="flex justify-between gap-5">
             <span>
               {titleProdcut(product.title, 20)} ({product.quantity})
             </span>
@@ -39,11 +39,16 @@ const Bill: React.FC<{ handleShowModal: () => void }> = ({
           </li>
         ))}
       </ul>
-      <footer>
-        <span>
+      <footer className="flex flex-col gap-2 border-t-[1px] border-gray pt-1">
+        <span className="flex justify-between ">
           Total <strong>$ {totalPrices()}</strong>
         </span>
-        <button onClick={sellProducts}>Comprar</button>
+        <button
+          onClick={sellProducts}
+          className="bg-lightBlue text-white rounded-lg"
+        >
+          Comprar
+        </button>
       </footer>
     </div>
   );

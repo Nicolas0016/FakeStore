@@ -1,4 +1,4 @@
-import { ActionHistory, TProduct } from "../../types/storeTypes";
+import { ActionHistory, TProduct } from "../types/storeTypes";
 
 const reducerHistory = (state: TProduct[], action: ActionHistory) => {
   switch (action.type) {
