@@ -1,4 +1,4 @@
-import { ActionShoppingCart, CartProduct } from "../../types/storeTypes";
+import { ActionShoppingCart, CartProduct } from "../types/storeTypes";
 
 const reducerProductsCart = (
   state: CartProduct[],

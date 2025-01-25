@@ -23,12 +23,20 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
 
   const [state, dispatch] = useReducer(reducer, []);
   useEffect(() => {
-    const products: TProduct[] = JSON.parse(localStorage.getItem("products"));
-    if (products) dispatch({ type: "initialize", payload: products });
-    else {
-      listProducts().then((products) => {
-        dispatch({ type: "initialize", payload: products });
-        window.localStorage.setItem("products", JSON.stringify(products));
+    const storedProducts = localStorage.getItem("products");
+    const products: TProduct[] = storedProducts
+      ? JSON.parse(storedProducts)
+      : [];
+
+    if (products.length > 0) {
+      dispatch({ type: "initialize", payload: products });
+    } else {
+      listProducts().then((fetchedProducts) => {
+        dispatch({ type: "initialize", payload: fetchedProducts });
+        window.localStorage.setItem(
+          "products",
+          JSON.stringify(fetchedProducts)
+        );
       });
     }
   }, []);
@@ -39,6 +47,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     </AppContext.Provider>
   );
 };
+
 export const useAppContext = () => {
   const context = useContext(AppContext);
   if (!context) {
